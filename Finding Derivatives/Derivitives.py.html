@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Derivitives.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Derivitives.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">sympy </span><span class="s0">as </span><span class="s1">sp</span>
+
+<span class="s0">def </span><span class="s1">find_derivative</span><span class="s2">(</span><span class="s1">expression</span><span class="s2">):</span>
+    <span class="s1">x </span><span class="s2">= </span><span class="s1">sp</span><span class="s2">.</span><span class="s1">Symbol</span><span class="s2">(</span><span class="s3">'x'</span><span class="s2">)</span>
+    <span class="s1">derivative </span><span class="s2">= </span><span class="s1">sp</span><span class="s2">.</span><span class="s1">diff</span><span class="s2">(</span><span class="s1">expression</span><span class="s2">, </span><span class="s1">x</span><span class="s2">)</span>
+    <span class="s0">return </span><span class="s1">derivative</span>
+
+<span class="s0">def </span><span class="s1">main</span><span class="s2">():</span>
+    <span class="s4"># Get the function expression from the user</span>
+    <span class="s1">expression_str </span><span class="s2">= </span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;Enter a function expression in terms of x: &quot;</span><span class="s2">)</span>
+
+    <span class="s4"># Convert the user input string to a SymPy expression</span>
+    <span class="s1">expression </span><span class="s2">= </span><span class="s1">sp</span><span class="s2">.</span><span class="s1">sympify</span><span class="s2">(</span><span class="s1">expression_str</span><span class="s2">)</span>
+
+    <span class="s4"># Check if the expression is valid</span>
+    <span class="s0">if </span><span class="s1">isinstance</span><span class="s2">(</span><span class="s1">expression</span><span class="s2">, </span><span class="s1">sp</span><span class="s2">.</span><span class="s1">Expr</span><span class="s2">):</span>
+        <span class="s4"># Find the derivative using the provided function</span>
+        <span class="s1">derivative </span><span class="s2">= </span><span class="s1">find_derivative</span><span class="s2">(</span><span class="s1">expression</span><span class="s2">)</span>
+
+        <span class="s4"># Print the derivative</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;The derivative of&quot;</span><span class="s2">, </span><span class="s1">expression_str</span><span class="s2">, </span><span class="s3">&quot;is&quot;</span><span class="s2">, </span><span class="s1">derivative</span><span class="s2">)</span>
+    <span class="s0">else</span><span class="s2">:</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Invalid input. Please enter a valid function expression.&quot;</span><span class="s2">)</span>
+
+<span class="s0">if </span><span class="s1">__name__ </span><span class="s2">== </span><span class="s3">&quot;__main__&quot;</span><span class="s2">:</span>
+    <span class="s1">main</span><span class="s2">()</span>
+
+
+</pre>
+</body>
+</html>
