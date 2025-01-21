@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>lottery_ticket.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #7a7e85;}
+.s5 { color: #6aab73;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+lottery_ticket.py</font>
+</center></td></tr></table>
+<pre><span class="s0">''' 
+Christian Godoy 
+ 
+This program serves as a simulation for a Mega Millions-style lottery machine. 
+It facilitates ticket purchases, random number generation, prize allocations, and outcome reporting. 
+ 
+I certify that this code is mine, and mine alone, in accordance with GVSU academic honesty policy. 
+ 
+4-13-24 
+'''</span>
+
+<span class="s2">class </span><span class="s1">LotteryTicket</span><span class="s3">:</span>
+
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">info</span><span class="s3">):</span>
+        <span class="s4"># Splitting the info string to get various information</span>
+        <span class="s1">tokens </span><span class="s3">= </span><span class="s1">info</span><span class="s3">.</span><span class="s1">split</span><span class="s3">(</span><span class="s5">&quot;,&quot;</span><span class="s3">)</span>
+
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">firstname </span><span class="s3">= </span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">0</span><span class="s3">].</span><span class="s1">strip</span><span class="s3">()</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">lastname </span><span class="s3">= </span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">1</span><span class="s3">].</span><span class="s1">strip</span><span class="s3">()</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">city </span><span class="s3">= </span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">2</span><span class="s3">].</span><span class="s1">strip</span><span class="s3">()</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">state </span><span class="s3">= </span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">3</span><span class="s3">].</span><span class="s1">strip</span><span class="s3">()</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">zipcode </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">4</span><span class="s3">].</span><span class="s1">strip</span><span class="s3">())</span>
+
+        <span class="s4"># Extracting birthday</span>
+        <span class="s1">birthday </span><span class="s3">= </span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">5</span><span class="s3">].</span><span class="s1">strip</span><span class="s3">()</span>
+        <span class="s1">birthday_parts </span><span class="s3">= </span><span class="s1">birthday</span><span class="s3">.</span><span class="s1">split</span><span class="s3">(</span><span class="s5">&quot;/&quot;</span><span class="s3">)</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">day </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">birthday_parts</span><span class="s3">[</span><span class="s6">1</span><span class="s3">])</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">month </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">birthday_parts</span><span class="s3">[</span><span class="s6">0</span><span class="s3">])</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">year </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">birthday_parts</span><span class="s3">[</span><span class="s6">2</span><span class="s3">])</span>
+
+        <span class="s4"># Extracting remaining numbers as lottery numbers</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">lottery_nums </span><span class="s3">= [</span><span class="s1">int</span><span class="s3">(</span><span class="s1">num</span><span class="s3">.</span><span class="s1">strip</span><span class="s3">()) </span><span class="s2">for </span><span class="s1">num </span><span class="s2">in </span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">6</span><span class="s3">:</span><span class="s6">11</span><span class="s3">]]</span>
+
+        <span class="s4"># Getting mega ball</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">mega_ball </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">tokens</span><span class="s3">[</span><span class="s6">11</span><span class="s3">].</span><span class="s1">strip</span><span class="s3">())</span>
+
+        <span class="s4"># Setting initial prize to 0</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">prize </span><span class="s3">= </span><span class="s6">0.0</span>
+
+
+    <span class="s4"># Accessor Methods</span>
+    <span class="s2">def </span><span class="s1">get_first</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">firstname</span>
+
+    <span class="s2">def </span><span class="s1">get_last</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">lastname</span>
+
+    <span class="s2">def </span><span class="s1">get_city</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">city</span>
+
+    <span class="s2">def </span><span class="s1">get_state</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">state</span>
+
+    <span class="s2">def </span><span class="s1">get_zipcode</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">zipcode</span>
+
+    <span class="s2">def </span><span class="s1">get_day</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">day</span>
+
+    <span class="s2">def </span><span class="s1">get_month</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">month</span>
+
+    <span class="s2">def </span><span class="s1">get_year</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">year</span>
+
+    <span class="s2">def </span><span class="s1">get_prize</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">prize</span>
+
+    <span class="s2">def </span><span class="s1">get_mega_ball</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">mega_ball</span>
+
+    <span class="s2">def </span><span class="s1">get_nums</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">lottery_nums</span>
+
+    <span class="s2">def </span><span class="s1">has_ball</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">val</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">val </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">lottery_nums </span><span class="s2">and </span><span class="s1">val </span><span class="s3">!= </span><span class="s1">self</span><span class="s3">.</span><span class="s1">mega_ball</span>
+
+    <span class="s2">def </span><span class="s1">has_mega_ball</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">val</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">val </span><span class="s3">== </span><span class="s1">self</span><span class="s3">.</span><span class="s1">mega_ball</span>
+
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s5">f&quot;</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">firstname</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">lastname</span><span class="s2">}\n{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">city</span><span class="s2">}</span><span class="s5">, </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">state</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">zipcode</span><span class="s2">}\n</span><span class="s5">&quot; </span><span class="s1">\</span>
+                <span class="s5">f&quot;</span><span class="s2">{</span><span class="s5">' '</span><span class="s3">.</span><span class="s1">join</span><span class="s3">(</span><span class="s1">map</span><span class="s3">(</span><span class="s1">str</span><span class="s3">, </span><span class="s1">self</span><span class="s3">.</span><span class="s1">lottery_nums</span><span class="s3">))</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">mega_ball</span><span class="s2">}\n </span><span class="s5">Prize: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">prize</span><span class="s2">:</span><span class="s5">.2f</span><span class="s2">}</span><span class="s5">&quot;</span>
+
+    <span class="s2">def </span><span class="s1">set_prize</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">amount</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">prize </span><span class="s3">= </span><span class="s1">amount</span>
+</pre>
+</body>
+</html>
