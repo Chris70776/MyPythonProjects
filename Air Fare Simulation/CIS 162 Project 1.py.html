@@ -1,0 +1,250 @@
+<html>
+<head>
+<title>CIS 162 Project 1.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #cf8e6d;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CIS 162 Project 1.py</font>
+</center></td></tr></table>
+<pre><span class="s0"># Christian Godoy</span>
+<span class="s0"># The following code is a program for calculating airline ticket prices based on user input for</span>
+<span class="s0"># destination, day, row, bags, and premium features. It includes error checking, default fare assignments,</span>
+<span class="s0"># adjustments for specific seating options, and outputs a ticket price summary with fare, bag costs, taxes,</span>
+<span class="s0"># and the total amount.</span>
+<span class="s0"># I certify that this code is mine, and mine alone, in accordance with</span>
+<span class="s0"># GVSU academic honesty policy.</span>
+<span class="s0"># COMPLETION DATE:</span>
+<span class="s0"># 2-3-24</span>
+
+<span class="s0"># Phase 1 &amp; 2 | 2-1-24 4:39 PM |</span>
+
+<span class="s0">#Promting user for inputs regarding their travels</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Enter information&quot;</span><span class="s2">)</span>
+<span class="s1">destination </span><span class="s2">= </span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;Destination: &quot;</span><span class="s2">)</span>
+<span class="s1">day </span><span class="s2">= </span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;Day: &quot;</span><span class="s2">)</span>
+<span class="s1">row </span><span class="s2">= </span><span class="s1">int</span><span class="s2">(</span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;Row: &quot;</span><span class="s2">))</span>
+<span class="s1">bags </span><span class="s2">= </span><span class="s1">int</span><span class="s2">(</span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;Bags: &quot;</span><span class="s2">))</span>
+<span class="s1">premium_plus </span><span class="s2">= </span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;Premium Plus (y/n): &quot;</span><span class="s2">)</span>
+
+
+
+<span class="s0">#Checking for errors (Phase 7) | 2-3-24 10:20 PM</span>
+
+<span class="s0">#Checking if user entered row is between 1-35, if entered destination</span>
+<span class="s0"># is valid as well as the day</span>
+
+<span class="s0">#Checking if row is between 1-35</span>
+<span class="s4">if not </span><span class="s5">1 </span><span class="s2">&lt;= </span><span class="s1">row </span><span class="s2">&lt;= </span><span class="s5">35</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Oops! Row must be 1 - 35.&quot;</span><span class="s2">)</span>
+    <span class="s1">exit</span><span class="s2">()</span>
+
+<span class="s0">#checking if destination is valid</span>
+<span class="s1">valid_airports </span><span class="s2">= [</span><span class="s3">&quot;DFW&quot;</span><span class="s2">, </span><span class="s3">&quot;LAX&quot;</span><span class="s2">, </span><span class="s3">&quot;SEA&quot;</span><span class="s2">, </span><span class="s3">&quot;MIA&quot;</span><span class="s2">, </span><span class="s3">&quot;BOS&quot;</span><span class="s2">]</span>
+<span class="s4">if </span><span class="s1">destination</span><span class="s2">.</span><span class="s1">upper</span><span class="s2">() </span><span class="s4">not in </span><span class="s1">valid_airports</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Oops! Destination must be DFW, LAX, SEA, MIA or BOS.&quot;</span><span class="s2">)</span>
+    <span class="s1">exit</span><span class="s2">()</span>
+
+<span class="s0">#checking if day is valid</span>
+<span class="s1">valid_days </span><span class="s2">= [</span><span class="s3">&quot;Mon&quot;</span><span class="s2">, </span><span class="s3">&quot;Tue&quot;</span><span class="s2">, </span><span class="s3">&quot;Wed&quot;</span><span class="s2">, </span><span class="s3">&quot;Thu&quot;</span><span class="s2">, </span><span class="s3">&quot;Fri&quot;</span><span class="s2">, </span><span class="s3">&quot;Sat&quot;</span><span class="s2">, </span><span class="s3">&quot;Sun&quot;</span><span class="s2">]</span>
+<span class="s4">if </span><span class="s1">day</span><span class="s2">.</span><span class="s1">capitalize</span><span class="s2">() </span><span class="s4">not in </span><span class="s1">valid_days</span><span class="s2">:</span>
+    <span class="s1">day </span><span class="s2">= </span><span class="s3">&quot;Mon&quot;</span>
+
+<span class="s0">#checking if bag is a negative number</span>
+<span class="s4">if </span><span class="s1">bags </span><span class="s2">&lt; </span><span class="s5">0</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Oops! Please enter a number greater than 0.&quot;</span><span class="s2">)</span>
+    <span class="s1">exit</span><span class="s2">()</span>
+
+<span class="s0">#checking if row is a negative number</span>
+<span class="s4">if </span><span class="s1">row </span><span class="s2">&lt; </span><span class="s5">0</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Oops! Rows must be between 0 - 35.&quot;</span><span class="s2">)</span>
+    <span class="s1">exit</span><span class="s2">()</span>
+
+<span class="s0">#Checking if a user leaves something empty or not</span>
+<span class="s4">if </span><span class="s1">destination</span><span class="s2">.</span><span class="s1">strip</span><span class="s2">() == </span><span class="s3">'' </span><span class="s4">or </span><span class="s1">day</span><span class="s2">.</span><span class="s1">strip</span><span class="s2">() == </span><span class="s3">'' </span><span class="s4">or </span><span class="s1">premium_plus</span><span class="s2">.</span><span class="s1">strip</span><span class="s2">() == </span><span class="s3">''</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Oops! Please fill in all the required information.&quot;</span><span class="s2">)</span>
+    <span class="s1">exit</span><span class="s2">()</span>
+
+<span class="s0"># Designating default fares (Phase 2)</span>
+
+<span class="s0"># Fares for Dallas Fort Worth</span>
+<span class="s4">if </span><span class="s1">destination </span><span class="s2">== </span><span class="s3">&quot;DFW&quot;</span><span class="s2">:</span>
+    <span class="s4">if </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Mon&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">213</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Tue&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">198</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Wed&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">198</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Thu&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">213</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Fri&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">399</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Sat&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">213</span>
+    <span class="s4">else</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">198</span>
+
+<span class="s0"># Fares for Los Angeles International Airport</span>
+<span class="s4">elif </span><span class="s1">destination </span><span class="s2">== </span><span class="s3">&quot;LAX&quot;</span><span class="s2">:</span>
+    <span class="s4">if </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Mon&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">334</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Tue&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">314</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Wed&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">314</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Thu&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">334</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Fri&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">429</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Sat&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">334</span>
+    <span class="s4">else</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">314</span>
+
+<span class="s0"># Fares for Miami International Airport</span>
+<span class="s4">elif </span><span class="s1">destination </span><span class="s2">== </span><span class="s3">&quot;MIA&quot;</span><span class="s2">:</span>
+    <span class="s4">if </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Mon&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">279</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Tue&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">204</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Wed&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">204</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Thu&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">279</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Fri&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">370</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Sat&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">279</span>
+    <span class="s4">else</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">204</span>
+
+<span class="s0"># Fares for Seattle-Tacoma International Airport</span>
+<span class="s4">elif </span><span class="s1">destination </span><span class="s2">== </span><span class="s3">&quot;SEA&quot;</span><span class="s2">:</span>
+    <span class="s4">if </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Mon&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">315</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Tue&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">294</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Wed&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">294</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Thu&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">315</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Fri&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">430</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Sat&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">315</span>
+    <span class="s4">else</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">294</span>
+
+<span class="s0"># Fares for Boston Logan International Airport</span>
+<span class="s4">elif </span><span class="s1">destination </span><span class="s2">== </span><span class="s3">&quot;BOS&quot;</span><span class="s2">:</span>
+    <span class="s4">if </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Mon&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">241</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Tue&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">205</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Wed&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">205</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Thu&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">241</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Fri&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">298</span>
+    <span class="s4">elif </span><span class="s1">day </span><span class="s2">== </span><span class="s3">&quot;Sat&quot;</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">241</span>
+    <span class="s4">else</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s5">205</span>
+
+
+
+<span class="s0"># Phase 3 &amp; 4 | 2-1-24 11:15 PM | 2-3-23 8:23 PM</span>
+
+<span class="s0"># Calculating fares if user chooses first class &amp; additional seating options</span>
+<span class="s4">if </span><span class="s5">1 </span><span class="s2">&lt;= </span><span class="s1">row </span><span class="s2">&lt;= </span><span class="s5">7</span><span class="s2">:</span>
+    <span class="s1">first_class_fee </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">* </span><span class="s5">0.75</span>
+    <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">+ </span><span class="s1">first_class_fee</span>
+
+<span class="s4">elif </span><span class="s2">(</span><span class="s1">row </span><span class="s2">== </span><span class="s5">14</span><span class="s2">) </span><span class="s4">or </span><span class="s2">(</span><span class="s1">row </span><span class="s2">== </span><span class="s5">15</span><span class="s2">):</span>
+    <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">+ </span><span class="s5">49</span>
+
+<span class="s4">elif </span><span class="s2">(</span><span class="s5">8 </span><span class="s2">&lt;= </span><span class="s1">row </span><span class="s2">&lt;= </span><span class="s5">13</span><span class="s2">) </span><span class="s4">or </span><span class="s2">(</span><span class="s5">16 </span><span class="s2">&lt;= </span><span class="s1">row </span><span class="s2">&lt;= </span><span class="s5">20</span><span class="s2">):</span>
+    <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">+ </span><span class="s5">35</span>
+
+
+
+<span class="s0"># Phase 5 | 2-3-23 8:35 PM</span>
+
+<span class="s0"># bag_price has to be defined and evaluated if user has one bag or more</span>
+<span class="s1">bag_price </span><span class="s2">= </span><span class="s5">0</span>
+
+<span class="s4">if </span><span class="s1">bags </span><span class="s2">== </span><span class="s5">1</span><span class="s2">:</span>
+    <span class="s1">bag_price </span><span class="s2">= </span><span class="s5">35</span>
+<span class="s4">elif </span><span class="s1">bags </span><span class="s2">&gt;= </span><span class="s5">2</span><span class="s2">:</span>
+    <span class="s1">bag_price </span><span class="s2">= </span><span class="s5">35 </span><span class="s2">+ (</span><span class="s5">25 </span><span class="s2">* (</span><span class="s1">bags </span><span class="s2">- </span><span class="s5">1</span><span class="s2">))</span>
+
+
+
+<span class="s0"># Phase 6</span>
+
+<span class="s0"># Making adjustments to account for premium features, one free bag and free preferred seating,</span>
+<span class="s0"># using boolean statements</span>
+<span class="s4">if </span><span class="s1">premium_plus </span><span class="s2">== </span><span class="s3">&quot;y&quot;</span><span class="s2">:</span>
+    <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">+ </span><span class="s5">94</span>
+
+    <span class="s4">if </span><span class="s1">bags </span><span class="s2">== </span><span class="s5">1</span><span class="s2">:</span>
+        <span class="s1">bag_price </span><span class="s2">= </span><span class="s5">0</span>
+    <span class="s4">else</span><span class="s2">:</span>
+        <span class="s1">bag_price </span><span class="s2">= </span><span class="s5">35 </span><span class="s2">+ ((</span><span class="s1">bags </span><span class="s2">* </span><span class="s5">25</span><span class="s2">) - </span><span class="s5">25</span><span class="s2">)</span>
+        <span class="s1">bag_price </span><span class="s2">-= </span><span class="s5">25</span>
+
+    <span class="s4">if </span><span class="s5">1 </span><span class="s2">&lt;= </span><span class="s1">row </span><span class="s2">&lt;= </span><span class="s5">7</span><span class="s2">:</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">- </span><span class="s1">first_class_fee</span>
+    <span class="s4">elif </span><span class="s2">(</span><span class="s1">row </span><span class="s2">== </span><span class="s5">14</span><span class="s2">) </span><span class="s4">or </span><span class="s2">(</span><span class="s1">row </span><span class="s2">== </span><span class="s5">15</span><span class="s2">):</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">- </span><span class="s5">49</span>
+    <span class="s4">elif </span><span class="s2">(</span><span class="s5">8 </span><span class="s2">&lt;= </span><span class="s1">row </span><span class="s2">&lt;= </span><span class="s5">13</span><span class="s2">) </span><span class="s4">or </span><span class="s2">(</span><span class="s5">16 </span><span class="s2">&lt;= </span><span class="s1">row </span><span class="s2">&lt;= </span><span class="s5">20</span><span class="s2">):</span>
+        <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">- </span><span class="s5">35</span>
+
+<span class="s0"># &quot;resetting&quot; variable values if no premium is selected</span>
+<span class="s4">elif </span><span class="s1">premium_plus </span><span class="s2">== </span><span class="s3">&quot;n&quot;</span><span class="s2">:</span>
+    <span class="s1">fare </span><span class="s2">= </span><span class="s1">fare</span>
+    <span class="s4">if </span><span class="s1">bags </span><span class="s2">&gt;= </span><span class="s5">2</span><span class="s2">:</span>
+        <span class="s1">bag_price </span><span class="s2">= </span><span class="s5">35 </span><span class="s2">+ (</span><span class="s5">25 </span><span class="s2">* (</span><span class="s1">bags </span><span class="s2">- </span><span class="s5">1</span><span class="s2">))</span>
+    <span class="s4">else</span><span class="s2">:</span>
+        <span class="s1">bag_price </span><span class="s2">= </span><span class="s1">bag_price</span>
+
+
+
+
+
+<span class="s0"># calculating total price and tax last</span>
+<span class="s1">tax </span><span class="s2">= (</span><span class="s1">fare </span><span class="s2">* </span><span class="s5">0.18</span><span class="s2">)</span>
+
+<span class="s1">total </span><span class="s2">= </span><span class="s1">fare </span><span class="s2">+ </span><span class="s1">tax </span><span class="s2">+ </span><span class="s1">bag_price</span>
+
+<span class="s0"># Printing and calculating ticket summary</span>
+<span class="s1">print</span><span class="s2">()</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Ticket Price Summary&quot;</span><span class="s2">)</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Fare: $</span><span class="s4">{</span><span class="s1">fare</span><span class="s4">:</span><span class="s3">.2f</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+
+<span class="s0"># Only printing bag price if amount of bags is greater than 0</span>
+<span class="s0"># The same goes if premium pass is selected</span>
+
+<span class="s4">if </span><span class="s1">bag_price </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Bags: $</span><span class="s4">{</span><span class="s1">bag_price</span><span class="s4">:</span><span class="s3">.2f</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+
+<span class="s4">if </span><span class="s1">premium_plus </span><span class="s2">== </span><span class="s3">&quot;y&quot;</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Premium: $94.00&quot;</span><span class="s2">)</span>
+
+<span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Taxes: $</span><span class="s4">{</span><span class="s1">tax</span><span class="s4">:</span><span class="s3">.2f</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Total: $</span><span class="s4">{</span><span class="s1">total</span><span class="s4">:</span><span class="s3">.2f</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+
+</pre>
+</body>
+</html>
